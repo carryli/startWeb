@@ -5,8 +5,10 @@ import java.util.List;
 import org.carryli.work.entity.Member;
 
 public interface MemberService {
-	public void addMember(Member member);
-	public void deleteMember(Member member);
-	public void updateMember(Member member);
+	public boolean addMember(Member member);
+	public boolean deleteMember(Member member);
+	public boolean deleteMemberById(Integer id);
+	public boolean updateMember(Member member);
+	public Member findMemberById(Integer id);
 	public List<Member> findAll();
 }

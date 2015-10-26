@@ -5,11 +5,16 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlRootElement;
 
+import org.hibernate.annotations.Cache;
+import org.hibernate.annotations.CacheConcurrencyStrategy;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
+@XmlRootElement
 @Table(name = "member")
+@Cache(usage = CacheConcurrencyStrategy.READ_WRITE, region="org.carryli.work.entity.Member")
 public class Member {
 	@Id
 	@GeneratedValue(generator="increment")

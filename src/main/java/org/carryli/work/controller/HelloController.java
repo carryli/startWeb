@@ -4,7 +4,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 /**
@@ -23,6 +25,25 @@ public class HelloController {
 	public ModelAndView handleRequest(HttpServletRequest request,HttpServletResponse response) throws Exception {
 		ModelAndView mav = new ModelAndView("login"); //视图名称:helloword,结合ViewResolver,找到对应的视图路径
 		mav.addObject("message", "Hello World!"); //添加模型数据
+		return mav;
+	}
+	
+	@RequestMapping(value = "/error_404", produces = "text/html;charset=UTF-8")
+	@ResponseBody
+	public ModelAndView error_404(@ModelAttribute("exception")Exception ex, ModelAndView mav) throws Exception {
+		mav.addObject("{\"msg\":\"找不到页面\",\"code\":\"1000001\"}");
+		mav.setViewName("errorMsg");
+		return mav;
+	}
+	/**
+	 * 服务器异常
+	 * @return
+	 * String
+	 */
+	@RequestMapping(value ="/error_500", produces = "text/html;charset=UTF-8")
+	public ModelAndView error_500(@ModelAttribute("exception")Exception ex, ModelAndView mav) throws Exception {
+		mav.addObject("{\"msg\":\"服务器处理失败\",\"code\":\"1000002\"}");
+		mav.setViewName("error");
 		return mav;
 	}
 }

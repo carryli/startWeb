@@ -7,40 +7,59 @@ import org.carryli.work.entity.Member;
 import org.carryli.work.service.impl.MemberService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-@Service("memberService")
+@Service
+@EnableTransactionManagement
 public class MemberServiceImpl implements MemberService {
-	@Autowired
+
 	private MemberDao memberDao;
 	public MemberDao getMemberDao() {
 		return memberDao;
 	}
-
+	
+	@Autowired
 	public void setMemberDao(MemberDao memberDao) {
+
 		this.memberDao = memberDao;
 	}
 
 	@Override
-	public void addMember(Member member) {
-		memberDao.save(member);
+	public boolean addMember(Member member) {
+		return memberDao.save(member);
 		
 	}
 
 	@Override
-	public void deleteMember(Member member) {
-		memberDao.delete(member);
+	public boolean deleteMember(Member member) {
+
+		return memberDao.delete(member.getMemberid());
 		
 	}
 
 	@Override
-	public void updateMember(Member member) {
-		memberDao.update(member);
+	public boolean updateMember(Member member) {
+
+		return memberDao.update(member);
 		
 	}
 
 	@Override
 	public List<Member> findAll() {
+
 		return memberDao.getAll();
+	}
+	
+	@Override
+	public boolean deleteMemberById(Integer id) {
+
+		return  memberDao.delete(id);
+	}
+	
+	@Override
+	public Member findMemberById(Integer id) {
+		
+		return memberDao.load(id);
 	}
 
 }

@@ -2,7 +2,7 @@
 <!DOCTYPE log4j:configuration PUBLIC "-//log4j/log4j Configuration//EN" "log4j.dtd">
 <log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
 
-    <appender name="FileAppender" class="org.apache.log4j.ConsoleAppender">
+    <appender name="STDOUT" class="org.apache.log4j.ConsoleAppender">
        <layout class="org.apache.log4j.PatternLayout">
           <param name="ConversionPattern" value="%d %-5p %c.%M:%L - %m%n"/>
        </layout>
@@ -35,22 +35,22 @@
 
     <!-- specify the logging level for loggers from other libraries -->
     <logger name="com.opensymphony">
-    	<level value="ERROR" />
-        <appender-ref ref="FileAppender"/>
+    	<level value="INFO" />
+        <appender-ref ref="STDOUT"/>
     </logger>
 
-    <logger name="org.apache.struts2">
-    	 <level value="ERROR" />
-        <appender-ref ref="FileAppender"/>
+    <logger name="org.hibernate.impl.SessionFactoryImpl">
+    	 <level value="INFO" />
+        <appender-ref ref="STDOUT"/>
     </logger>
 
    	<!-- for all other loggers log only debug and above log messages -->
      <root>
-        <priority value="ERROR"/>
-        <!--appender-ref ref="STDOUT" />
-        <appender-ref ref="DailyRollingFileAppender"/>
-        <appender-ref ref="RollingFile"/-->
-        <appender-ref ref="FileAppender"/>
+        <priority value="INFO"/>
+        <appender-ref ref="STDOUT" />
+        <!--appender-ref ref="DailyRollingFileAppender"/>
+        <appender-ref ref="RollingFile"/>
+        <appender-ref ref="FileAppender"/-->
      </root>
 
 </log4j:configuration>

@@ -7,7 +7,7 @@
 <title>Login Page</title>
 </head>
 <body>
-<form action="login.action"  modelAttribute="user" method="post">
+<form action="login.html"  modelAttribute="user" method="post">
     Username:
     <input type = "text" name = "username" /><br />
     Password:

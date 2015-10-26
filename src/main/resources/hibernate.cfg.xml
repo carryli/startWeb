@@ -8,12 +8,27 @@
         <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/startweb</property>
         <property name="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</property>
 
-        <property name="current_session_context_class">thread</property>
         <property name="hibernate.show_sql">true</property>
-        <property name="format_sql">true</property>
+        <property name="hibernate.format_sql">true</property>
         <property name="hbm2ddl.auto">update</property>
         <property name="hibernate.cache.provider_class">org.hibernate.cache.EhCacheProvider</property>
-		<property name="hibernate.cache.use_second_level_cache">false</property>
-		<property name="hibernate.cache.use_query_cache">false</property>
+		<property name="hibernate.cache.use_second_level_cache">true</property>
+		<property name="hibernate.cache.use_query_cache">true</property>
+		<property name="hibernate.jdbc.batch_size">30</property>
+		<property name="hibernate.connection.characterEncoding">utf8</property>
+		<property name="hibernate.transaction.flush_before_completion">true</property>
+		<property name="hibernate.cache.use_structured_entries">true</property>
+		<property name="hibernate.transaction.auto_close_session">true</property>
+		<property name="hibernate.connection.autocommit">true</property>
+        <property name="hibernate.cache.region.factory_class">  
+            net.sf.ehcache.hibernate.SingletonEhCacheRegionFactory  
+        </property> 
+        <mapping class="org.carryli.work.entity.User"/>
+        <mapping class="org.carryli.work.entity.Member"/>
+        <mapping class="org.carryli.work.entity.Employee"/>
+        <mapping class="org.carryli.work.entity.Address"/>
+        <mapping class="org.carryli.work.entity.UserBook"/>
+        <mapping class="org.carryli.work.entity.Book"/>
+        <mapping class="org.carryli.work.entity.Role"/>
     </session-factory>
 </hibernate-configuration>
