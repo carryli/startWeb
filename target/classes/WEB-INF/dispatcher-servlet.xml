@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+	   xmlns:aop="http://www.springframework.org/schema/aop" 
+	   xmlns:context="http://www.springframework.org/schema/context"
+	   xmlns:mvc="http://www.springframework.org/schema/mvc" 
+	   xmlns:tx="http://www.springframework.org/schema/tx" 
+	   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	   xsi:schemaLocation="http://www.springframework.org/schema/aop 
+		http://www.springframework.org/schema/aop/spring-aop-3.1.xsd 
+		http://www.springframework.org/schema/beans 
+		http://www.springframework.org/schema/beans/spring-beans-3.1.xsd 
+		http://www.springframework.org/schema/context 
+		http://www.springframework.org/schema/context/spring-context-3.1.xsd 
+		http://www.springframework.org/schema/mvc 
+		http://www.springframework.org/schema/mvc/spring-mvc-3.1.xsd 
+		http://www.springframework.org/schema/tx 
+		http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+	
+	<mvc:annotation-driven />
+	<context:component-scan base-package="org.carryli.*" />
+	<mvc:resources mapping="/**" location="/" />
+
+<!-- 	<bean id="internalResourceResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="prefix" value="/" />
+        <property name="suffix" value=".jsp" />
+        <property name="order" value="5" />
+    </bean> -->
+	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
+        <property name="order" value="1" />
+        <property name="favorParameter" value="false" />
+        <property name="ignoreAcceptHeader" value="true" />
+        <property name="mediaTypes">
+        	<map>
+                <entry key="html" value="text/html"/>
+				<entry key="xml" value="application/xml"/>
+				<entry key="json" value="application/json"/>
+            </map>
+        </property>
+        <property name="defaultViews">
+            <list>
+                <bean class="org.springframework.web.servlet.view.json.MappingJacksonJsonView"></bean>
+                <bean class="org.springframework.web.servlet.view.xml.MarshallingView">
+                    <constructor-arg>
+                        <bean class="org.springframework.oxm.jaxb.Jaxb2Marshaller">
+                             <property name="classesToBeBound">
+                                <list>
+                                   <value>org.carryli.work.entity.Member</value>
+                                </list>
+                             </property>
+                        </bean>
+                    </constructor-arg>
+                </bean>
+            </list>
+        </property>
+    </bean>
+
+    <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+        <property name="order" value="2" />
+        <property name="prefix" value="/" />
+        <property name="suffix" value=".jsp" />
+        <property name="viewClass" value="org.springframework.web.servlet.view.JstlView" />
+    </bean>
+    
+	<bean id="exceptionResolver" class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="exceptionMappings">
+		    <props>
+		        <prop key="java.lang.Exception">errorMsg</prop>
+		        <prop key="java.lang.Throwable">error</prop>
+		    </props>
+		</property>
+		<property name="statusCodes">
+		    <props>
+		        <prop key="error">500</prop>
+		        <prop key="error">405</prop>
+		        <prop key="error">404</prop>
+		        <prop key="error">400</prop>
+		    </props>
+		</property>
+		<property name="warnLogCategory" value="INFO"></property>
+		<property name="defaultErrorView" value="error"></property>
+	    <property name="defaultStatusCode" value="500"></property>
+	</bean>
+</beans>
