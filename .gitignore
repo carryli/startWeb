@@ -1,0 +1,15 @@
+.gradle/
+build/
+.idea/
+out/
+*.iml
+/public
+.DS_Store
+/src/main/resources/public/index.html
+logs/
+biz_logs/
+bin/
+.classpath
+.project
+.settings/
+message_logs/
